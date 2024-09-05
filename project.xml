@@ -1,17 +1,25 @@
 <library>
   <repositories>
-    <repository><path>../modm/repo.lb</path></repository>
+    <repository><path>../../ext/modm/repo.lb</path></repository>
   </repositories>
-  <extends>modm:black-pill-f411</extends>
   <options>
     <option name="modm:build:build.path">build</option>
+    <option name="modm:build:project.name">app1</option>
+    <option name="modm:target">stm32f103c8t6</option>
   </options>
   <collectors>
-    <collect name="modm:build:openocd.source">interface/stlink-v2.cfg</collect>
+    <collect name="modm:build:openocd.source">interface/stlink.cfg</collect>
+    <collect name="modm:build:openocd.source">target/stm32f1x.cfg</collect>
   </collectors>
 
   <modules>
+    <module>modm:platform:clock</module>
+    <module>modm:platform:core</module>
+    <module>modm:platform:gpio</module>
+    <module>modm:architecture:delay</module>
     <module>modm:build:cmake</module>
+    <module>modm:build:compilation_db</module>
+    <module>modm:docs</module>
     <module>modm:architecture:memory</module>
     <module>modm:platform:heap</module>
     <module>modm:platform:spi:1</module>
@@ -20,6 +28,7 @@
     <module>modm:platform:flash</module>
     <module>modm:platform:fault</module>
     <module>modm:platform:id</module>
+    <module>modm:platform:usb</module>
     <module>modm:debug</module>
   </modules>
 </library>

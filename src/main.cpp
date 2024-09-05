@@ -1,12 +1,13 @@
-#include <modm/board.hpp>
 #include <modm/debug/logger.hpp>
 #include <modm/architecture/interface/build_id.hpp>
 #include <core/board.hpp>
+#include <modm/platform/core/peripherals.hpp>
 #include <string>
 
 // hdr_only_lib
 #include <test/header1.h>
 
+using Usart1 = BufferedUart<UsartHal1>;
 modm::IODeviceWrapper<Usart1, modm::IOBuffer::BlockIfFull> device;
 
 modm::log::Logger modm::log::debug(device);
@@ -14,12 +15,14 @@ modm::log::Logger modm::log::info(device);
 modm::log::Logger modm::log::warning(device);
 modm::log::Logger modm::log::error(device);
 
+using namespace Board;
+using namespace std::chrono_literals;
 
 int main()
 {
   Board::initialize();
 
-  Usart1::connect<Uart1_tx::Tx, Uart1_rx::Rx>();
+  Usart1::connect<Board::Uart1_tx::Tx, Board::Uart1_rx::Rx>();
   Usart1::initialize<Board::SystemClock, 115200_Bd>();
 
   auto hex_encode = [](const auto& begin, const auto& end) -> std::string {
@@ -38,10 +41,10 @@ int main()
   auto build = modm::build_id();
   MODM_LOG_INFO << hex_encode(build.begin(), build.end()).c_str() << "\n\r";
 
-  Led::set();
+  LedGreen::set();
 
   while (true) {
-    Led::toggle();
+    LedGreen::toggle();
     modm::delay(Button::read() ? 100ms : 500ms);
   }
 
