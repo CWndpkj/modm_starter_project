@@ -118,9 +118,7 @@ function(set_target_settings target_options target_warnings)
 
   set(LINKFLAGS_DEBUG
   )
-
-
-  set(CWARN
+set(CWARN
     -Wbad-function-cast
     -Wimplicit
     -Wredundant-decls

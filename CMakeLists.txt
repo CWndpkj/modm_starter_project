@@ -6,10 +6,12 @@ project(example CXX C)
 
 add_library(project_options INTERFACE)
 
-# Generate compile_commands.json to make it easier to work with clang based tools
+# Generate compile_commands.json to make it easier to work with clang based
+# tools
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-# Colors is unsupported vscode, can also be turend off in cmake/StandardProjectSettings.cmake
+# Colors is unsupported vscode, can also be turend off in
+# cmake/StandardProjectSettings.cmake
 target_compile_options(project_options INTERFACE -fdiagnostics-color=never)
 
 add_library(project_warnings INTERFACE)
@@ -23,7 +25,9 @@ enable_doxygen()
 
 include(cmake/StaticAnalyzers.cmake)
 
-option(ENABLE_IPO "Enable Interprocedural Optimization, aka Link Time Optimization (LTO)" OFF)
+option(ENABLE_IPO
+       "Enable Interprocedural Optimization, aka Link Time Optimization (LTO)"
+       OFF)
 if(ENABLE_IPO)
   set(CMAKE_INTERPROCEDURAL_OPTIMIZATION TRUE)
 endif()
@@ -31,14 +35,16 @@ endif()
 option(ENABLE_PCH "Enable Precompiled Headers" OFF)
 if(ENABLE_PCH)
   target_precompile_headers(
-    project_options
-    INTERFACE
-    <vector>  # Insert preferred headers
-    <string>
-    <map>
-    <utility>)
+    project_options INTERFACE <vector> # Insert preferred headers
+    <string> <map> <utility>)
 endif()
 
 add_subdirectory(modm)
 add_subdirectory(hdr_only_lib)
 add_subdirectory(src)
+
+execute_process(
+  COMMAND
+    ${CMAKE_COMMAND} -E create_symlink
+    ${CMAKE_BINARY_DIR}/compile_commands.json
+    ${CMAKE_CURRENT_SOURCE_DIR}/compile_commands.json)

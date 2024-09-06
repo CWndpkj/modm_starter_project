@@ -1,2 +1,12 @@
 CompileFlags:
-  CompilationDatabase: build
+  Add: [
+    "--target=arm-none-eabi",
+    "-isystem/usr/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/include/c++/14.1.0",
+    "-isystem/usr/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/include/c++/14.1.0/arm-none-eabi",
+    "-isystem/usr/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/include/c++/14.1.0/backward",
+    "-isystem/usr/lib/gcc/arm-none-eabi/14.1.0/include",
+    "-isystem/usr/lib/gcc/arm-none-eabi/14.1.0/include-fixed",
+    "-isystem/usr/lib/gcc/arm-none-eabi/14.1.0/../../../../arm-none-eabi/include",
+  ]
+  CompilationDatabase: "build"
+  Compiler: arm-none-eabi

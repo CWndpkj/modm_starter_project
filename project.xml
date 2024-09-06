@@ -30,5 +30,6 @@
     <module>modm:platform:id</module>
     <module>modm:platform:usb</module>
     <module>modm:debug</module>
+    <module>modm:etl</module>
   </modules>
 </library>
